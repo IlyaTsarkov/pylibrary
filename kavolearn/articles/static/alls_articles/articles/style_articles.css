@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: justify;
+}
+
+.container {
+  -webkit-box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5), -2px 0 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5), -2px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.little_title {
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.h2_name {
+  font-size: 26px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.h3_name {
+  font-size: 22px;
+  text-align: left;
+  font-weight: 900;
+}
+
+.links {
+  color: black;
+  font-weight: 600;
+}
+
+.python_img {
+  -webkit-box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+
+.full_screen {
+  width: 100%;
+}
+
+.red {
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 20px;
+  font-style: italic;
+  border: 1px red solid;
+}
+
+.table {
+  max-width: 100%;
+}
