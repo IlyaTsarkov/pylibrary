@@ -1,0 +1,55 @@
+.link {
+    color: black;
+    font-weight: 900;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.side_nav {
+    overflow: hidden;
+    width: 100%;
+}
+
+.px-5 {
+    text-align: justify;
+}
+
+.ttl {
+    font-size: 30px;
+    position: absolute;
+    left: 1%;
+}
+
+
+.nav_login {
+    display: inline-block;
+}
+
+.githublog {
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 100%;
+    background-image: url(git_icon.svg);
+    display: flex;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+.center {
+    margin: auto;
+    color: black;
+    font-weight: 900;
+}
+
+.review {
+    border-bottom: 1px solid blue;
+}
+
+.auth_main {
+    display: flex;
+}
+

@@ -1,0 +1,9 @@
+{% load main_tags %}
+<h4>Категории:</h4>
+<div class="side_nav">
+    <a href="{% url 'home' %}" class="link">Все категории</a><br>
+    {% get_category as category %}
+        {% for cat in category %}
+            <a href="{{ cat.get_absolute_url }}" class="link">{{ cat.name }}</a><br>
+        {% endfor %}
+</div>

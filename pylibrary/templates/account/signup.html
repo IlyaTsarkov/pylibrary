@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Регистрация" %}</h1>
+
+<p>{% blocktrans %}Уже зарегистрированы? Авторизуйтесь <a href="{{ login_url }}" class="link">Авторизация</a>.{% endblocktrans %}</p>
+
+<form class="signup auth-bottom" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    <label class="form-label">Имя пользователя</label>
+    <section>{{ form.username }}</section>
+    <br>
+    <label class="form-label">email</label>
+    <section>{{ form.email }}</section>
+    <br>
+    <label class="form-label">Пароль</label>
+    <section>{{ form.password1 }}</section>
+    <br>
+    <label class="form-label">Подтвердите пароль</label>
+    <section>{{ form.password2 }}</section>
+    <br>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+            <strong>{{ error }}</strong>
+            {% endfor %}
+        {% endfor %}
+            {% for error in form.non_field_errors %}
+            <strong>{{ error }}</strong>
+            {% endfor %}
+    {% endif %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <br>
+    <button type="submit" class="btn btn-primary">{% trans "зарегистрироваться" %}</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'book/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+        {% for book in books %}
+        <h2><a href="{{ book.get_absolute_url }}" class="link">{{ book.title }}</a></h2>
+            {% for author in book.authors.all %}
+                <h5>{{ author.name }}</h5>
+            {% endfor %}
+        <p>Категория - {{ book.category }}</p>
+        <p>Год выпуска - {{ book.year }} год.</p>
+        {% endfor %}
+{% endblock %}

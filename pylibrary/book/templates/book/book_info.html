@@ -1,0 +1,60 @@
+{% extends 'book/base.html' %}
+{% load cache %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    {% cache 60 book_info %}
+    <div class="mb-5">
+        <h2 class="text-center">{{ books.title }}</h2>
+        <p class="text-center"><strong>{{ books.category }}</strong></p>
+            {% for author in books.authors.all %}
+                <h5 class="text-end">{{ author.name }}</h5>
+            {% endfor %}
+        <p class="px-5 mt-5 lead">{{ books.description|safe }}</p>
+        <p class="text-end fw-bold">{{ books.year }}</p>
+    </div>
+    {% endcache %}
+    {% if user.is_authenticated %}
+            {% if object.user == request.user %}
+                <button class="btn btn-warning mb-5" type="submit">
+                <a href="{% url 'update' object.id %}">Редактировать запись</a>
+                </button>
+                <button class="btn btn-danger mb-5" type="submit">
+                <a href="{% url 'delete' object.id %}">Удалить запись</a>
+                </button>
+            {% endif %}
+    <h4>Оставить отзыв</h4>
+        <form action="{% url 'add_review' object.id %}" method="post">
+            {% csrf_token %}
+            <textarea name="content" class="form-control"></textarea>
+            <small class="form-text text-muted">
+              Максимальная допустимая длина отзыва - 3000 символов
+            </small>
+            {{ error }}
+            <br><button class="btn btn-primary" type="submit">
+                Оставить отзыв
+            </button>
+        </form>
+        {% else %}
+            <p>Для отправки отзыва необходимо <a class="link" href="{% url 'account_login' %}">Авторизоваться</a></p>
+        {% endif %}
+        <div class="if-comments-reviews">
+            {% if object.review_set.all %}
+            {% for review in object.review_set.all %}
+            <figure class="review">
+              <blockquote class="blockquote">
+                <h6>{{ review.content }}</h6>
+              </blockquote>
+                <figcaption class="blockquote-footer text-end">
+                    <cite title="Source Title">{{ review.user }}</cite>
+                </figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    <br><h4>отзывы</h4><br>
+    {% else %}
+        <p>Здесь пока ничего нет</p>
+    {% endif %}
+
+{% endblock %}
