@@ -1,0 +1,55 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Авторизация" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+{% blocktrans %}Вы можете авторизоваться через GitHub{% endblocktrans %}
+<div class="githublog">
+    <a href="{% provider_login_url "github" method="oauth2" %}" class="center">in</a>
+</div><br>
+{% blocktrans %}Либо{% endblocktrans %}
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}Если вы у вас еще нет аккаунта вы можете
+    <a href="{{ signup_url }}" class="link">зарегистрироваться</a>.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    <label class="form-label">Имя пользователя</label>
+    <section>{{ form.login }}</section>
+    <br>
+    <label class="form-label">Пароль</label>
+    <section>{{ form.password }}</section>
+    <br>
+    <section>{{ form.remember }} Запомнить пароль</section>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+            <strong>{{ error }}</strong>
+            {% endfor %}
+        {% endfor %}
+            {% for error in form.non_field_errors %}
+            <strong>{{ error }}</strong>
+            {% endfor %}
+    {% endif %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <section><a class="button secondaryAction link" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль" %}</a></section>
+    <br>
+    <button class="primaryAction btn btn-primary" type="submit">{% trans "Войти" %}</button>
+</form>
+
+{% endblock %}
